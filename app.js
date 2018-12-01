@@ -1,4 +1,5 @@
 const express = require('express');
+const session = require('express-session');
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -12,6 +13,13 @@ db.once('open', () => {
   // we're connected!
   console.log('Connected to Gomix database');
 });
+
+// use sessions for tracking logins
+app.use(session({
+  secret: 'work hard',
+  resave: true,
+  saveUninitialized: false,
+}));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
