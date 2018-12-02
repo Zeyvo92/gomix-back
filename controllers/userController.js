@@ -9,7 +9,10 @@ exports.createNewUser = (req, res, next) => {
       password: req.body.password,
     };
     User.create(userData, (error, user) => { // eslint-disable-line no-shadow
-      if (error) return next(error);
+      if (error) {
+        error.status = 400; // eslint-disable-line no-param-reassign
+        return next(error);
+      }
       req.session.userId = user._id; // eslint-disable-line no-underscore-dangle
       return res.status(201).json({ id: user._id }); // eslint-disable-line no-underscore-dangle
     });
@@ -44,7 +47,10 @@ exports.logoutUser = (req, res, next) => {
   if (req.session) {
     // delete session object
     req.session.destroy((err) => {
-      if (err) return next(err);
+      if (err) {
+        err.status = 400; // eslint-disable-line no-param-reassign
+        return next(err);
+      }
       return res.status(204).send();
     });
   }
