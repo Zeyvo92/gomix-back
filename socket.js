@@ -1,11 +1,12 @@
 const Message = require('./model/message');
 const User = require('./model/user');
+const sock = require('socket.io');
 
 module.exports = (server) => {
-  /*if (!req.session.userId) {
+  /* if (!req.session.userId) {
     return res.status(401).send('Please login');
-  }*/
-  const io = require('socket.io').listen(server);
+  } */
+  const io = sock.listen(server);
   io.on('connection', (socket) => {
     console.log('[SOCKET IO] New connection');
     socket.on('joinTopic', (data) => {
@@ -26,9 +27,9 @@ module.exports = (server) => {
       const messageData = {
         userId: data.userId,
         topicId: data.topicId,
-        text: data.msg,
+        text: data.msg
       };
-      Message.create(messageData, (err, msg) => {
+      Message.create(messageData, (err) => {
         if (err) throw err;
       });
     });

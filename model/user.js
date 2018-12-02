@@ -22,22 +22,24 @@ UserSchema.pre('save', function (next) { // eslint-disable-line func-names
       return next(err1);
     }
     user.password = hash;
-    next();
+    return next();
   });
 });
 
+
 // authenticate input against database
-UserSchema.statics.authenticate = function (email, password, callback) {
-  User.findOne({ email })
+UserSchema.statics.authenticate = (email, password, callback) => {
+  mongoose.model('User', UserSchema).findOne({ email })
     .exec((err, user) => {
       if (err) {
         return callback(err);
-      } if (!user) {
-        var err = new Error('User not found.');
-        err.status = 401;
-        return callback(err);
       }
-      bcrypt.compare(password, user.password, (err, result) => {
+      if (!user) {
+        let newErr = new Error('User not found.');
+        newErr.status = 401;
+        return callback(newErr);
+      }
+      return bcrypt.compare(password, user.password, (err3, result) => {
         if (result === true) {
           return callback(null, user);
         }

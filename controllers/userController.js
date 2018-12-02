@@ -7,7 +7,7 @@ exports.createNewUser = (req, res, next) => {
       email: req.body.email,
       password: req.body.password
     };
-    User.create(userData, (error, user) => { // eslint-disable-line no-shadow
+    return User.create(userData, (error, user) => { // eslint-disable-line no-shadow
       if (error) {
         error.status = 400; // eslint-disable-line no-param-reassign
         return next(error);
@@ -24,7 +24,7 @@ exports.createNewUser = (req, res, next) => {
 // login user
 exports.loginUser = (req, res, next) => {
   if (req.body.email && req.body.password) {
-    User.authenticate(req.body.email, req.body.password, (error, user) => {
+    return User.authenticate(req.body.email, req.body.password, (error, user) => {
       if (error || !user) {
         const err = new Error('Wrong email or password.');
         err.status = 401;
