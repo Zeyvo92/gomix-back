@@ -7,6 +7,7 @@ const topicController = require('../controllers/topicController');
 
 // GET /
 router.get('/user/logout', userController.logoutUser);
+//router.get('/topic/', topicController)
 
 // POST /
 router.post('/user/create', userController.createNewUser);

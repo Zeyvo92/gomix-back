@@ -6,7 +6,7 @@ exports.createNewUser = (req, res, next) => {
         && req.body.password) {
     const userData = {
       email: req.body.email,
-      password: req.body.password,
+      password: req.body.password
     };
     User.create(userData, (error, user) => { // eslint-disable-line no-shadow
       if (error) {
