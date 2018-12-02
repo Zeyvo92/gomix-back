@@ -2,8 +2,7 @@ const User = require('../model/user');
 
 // create new user then redirect to profile
 exports.createNewUser = (req, res, next) => {
-  if (req.body.email
-        && req.body.password) {
+  if (req.body.email && req.body.password) {
     const userData = {
       email: req.body.email,
       password: req.body.password
