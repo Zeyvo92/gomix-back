@@ -13,7 +13,13 @@ module.exports = (server) => {
       socket.join(data.topicId);
       Message.find({ topicId: data.topicId }, (err, msg) => {
         if (err) throw err;
-        socket.emit('messageHistory', msg);
+        msg.forEach((element) => {
+          User.findById(element.userId, (error, user) => {
+            if (error || !user) throw err;
+            socket.emit('newMessage', { userId: element.userId, email: user.email, text: element.text });
+          });
+        });
+        //socket.emit('messageHistory', msg2);
       }).limit(20);
     });
     socket.on('leaveTopic', (data) => {

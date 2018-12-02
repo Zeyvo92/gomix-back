@@ -32,6 +32,8 @@ app.use(bodyParser.json());
 // serve static files from /public
 app.use(express.static(`${__dirname}/template`));
 
+app.set('trust proxy', 1);
+
 // use sessions for tracking logins
 app.use(session({
   secret: 'work_hard',
