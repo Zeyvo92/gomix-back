@@ -57,7 +57,12 @@ app.use((err, req, res, next) => {
   });
 });
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+app.set('socketio', io);
+
 // listen on port 8000
-app.listen(8000, () => {
+server.listen(8000, () => {
   console.log('Express app listening on port 8000');
 });
