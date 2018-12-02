@@ -2,6 +2,9 @@ const Topic = require('../model/topic');
 
 // create new topic
 exports.createTopic = (req, res, next) => {
+  if (!req.session.userId) {
+    return res.status(401).send('Please login');
+  }
   if (req.body.title) {
     const topicData = {
       title: req.body.title,

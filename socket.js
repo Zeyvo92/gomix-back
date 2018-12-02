@@ -1,7 +1,10 @@
 const Message = require('./model/message');
 const User = require('./model/user');
 
-exports.createSocket = (req) => {
+exports.createSocket = (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).send('Please login');
+  }
   const io = req.app.get('socketio');
   io.on('connection', (socket) => {
     console.log('[SOCKET IO] New connection');
