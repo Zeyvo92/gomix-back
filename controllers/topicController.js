@@ -31,7 +31,6 @@ exports.getTopic = (req, res, next) => {
   /* if (!req.session.userId) {
     return res.status(401).send('Please login');
   } */
-  console.log(req.query.topicId);
   if (req.query.topicId) {
     Topic.findById(req.query.topicId, (err, topic) => {
       if (err) {
