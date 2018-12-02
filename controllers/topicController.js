@@ -27,9 +27,9 @@ exports.createTopic = (req, res, next) => {
 // get all or by id topic
 exports.getTopic = (req, res, next) => {
   console.log(req.session);
-  if (!req.session.userId) {
+  /* if (!req.session.userId) {
     return res.status(401).send('Please login');
-  }
+  } */
   if (req.query.topicId) {
     return Topic.findById(req.query.topicId, (err, topic) => {
       if (err) {
