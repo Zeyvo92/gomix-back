@@ -2,9 +2,9 @@ const Topic = require('../model/topic');
 
 // create new topic
 exports.createTopic = (req, res, next) => {
-  /*if (!req.session.userId) {
+  /* if (!req.session.userId) {
     return res.status(401).send('Please login');
-  }*/
+  } */
   if (req.body.title) {
     const topicData = {
       title: req.body.title,
@@ -23,5 +23,30 @@ exports.createTopic = (req, res, next) => {
     err.status = 400;
     return next(err);
   }
-  //return res.send();
+  // return res.send();
+};
+
+// get all or by id topic
+exports.getTopic = (req, res, next) => {
+  /* if (!req.session.userId) {
+    return res.status(401).send('Please login');
+  } */
+  console.log(req.query.topicId);
+  if (req.query.topicId) {
+    Topic.findById(req.query.topicId, (err, topic) => {
+      if (err) {
+        err.status = 400; // eslint-disable-line no-param-reassign
+        return next(err);
+      }
+      return res.status(201).json(topic);
+    });
+  } else {
+    Topic.find({}, (err, topic) => {
+      if (err) {
+        err.status = 400; // eslint-disable-line no-param-reassign
+        return next(err);
+      }
+      return res.status(201).json(topic);
+    });
+  }
 };
