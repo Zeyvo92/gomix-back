@@ -28,7 +28,7 @@ module.exports = (server) => {
     socket.on('message', (data) => {
       User.findById(data.userId, (err, user) => {
         if (err || !user) throw err;
-        io.to(data.topicId).emit('newMessage', { email: user.email, text: data.text });
+        io.to(data.topicId).emit('newMessage', { userId: user.userId, email: user.email, text: data.text });
       });
       const messageData = {
         userId: data.userId,
