@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/gomix', { useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/gomix', { useNewUrlParser: true, useCreateIndex: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
@@ -20,6 +20,12 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
 }));
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
