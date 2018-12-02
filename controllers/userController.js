@@ -15,11 +15,10 @@ exports.createNewUser = (req, res, next) => {
       req.session.userId = user._id; // eslint-disable-line no-underscore-dangle
       return res.status(201).json({ id: user._id }); // eslint-disable-line no-underscore-dangle
     });
-  } else {
-    const err = new Error('Email and password are required to create account');
-    err.status = 400;
-    return next(err);
   }
+  const err = new Error('Email and password are required to create account');
+  err.status = 400;
+  return next(err);
 };
 
 // login user
@@ -34,11 +33,10 @@ exports.loginUser = (req, res, next) => {
       req.session.userId = user._id; // eslint-disable-line no-underscore-dangle
       return res.status(200).json({ id: user._id }); // eslint-disable-line no-underscore-dangle
     });
-  } else {
-    const err = new Error('All fields required.');
-    err.status = 400;
-    return next(err);
   }
+  const err = new Error('All fields required.');
+  err.status = 400;
+  return next(err);
 };
 
 // logout user

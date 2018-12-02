@@ -18,12 +18,10 @@ exports.createTopic = (req, res, next) => {
       }
       return res.status(201).json({ id: topic._id }); // eslint-disable-line no-underscore-dangle
     });
-  } else {
-    const err = new Error('Title is required to create Topic');
-    err.status = 400;
-    return next(err);
   }
-  // return res.send();
+  const err = new Error('Title is required to create Topic');
+  err.status = 400;
+  return next(err);
 };
 
 // get all or by id topic

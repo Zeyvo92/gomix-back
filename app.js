@@ -18,7 +18,7 @@ db.once('open', () => {
 app.use(session({
   secret: 'work hard',
   resave: true,
-  saveUninitialized: false,
+  saveUninitialized: false
 }));
 
 app.use((req, res, next) => {
@@ -50,15 +50,14 @@ app.use((req, res, next) => {
 
 // error handler
 // define as the last app.use callback
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.status || 500).json({
     message: err.message,
-    error: {},
+    error: {}
   });
 });
 
 const server = require('http').Server(app);
-//const io = require('socket.io')(server);
 require('./socket')(server);
 
 

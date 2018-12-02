@@ -5,7 +5,6 @@ module.exports = (server) => {
   /*if (!req.session.userId) {
     return res.status(401).send('Please login');
   }*/
-  //const io = req.app.get('socketio');
   const io = require('socket.io').listen(server);
   io.on('connection', (socket) => {
     console.log('[SOCKET IO] New connection');
@@ -14,7 +13,7 @@ module.exports = (server) => {
       Message.find({ topicId: data.topicId }, (err, msg) => {
         if (err) throw err;
         socket.emit('messageHistory', msg);
-      }).find(20);
+      }).limit(20);
     });
     socket.on('leaveTopic', (data) => {
       socket.leave(data.topicId);

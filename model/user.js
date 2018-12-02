@@ -6,12 +6,12 @@ const UserSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true,
+    trim: true
   },
   password: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 });
 
 // hashing a password before saving it to the database

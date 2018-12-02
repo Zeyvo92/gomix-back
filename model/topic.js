@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const TopicSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: true
   },
   description: {
-    type: String,
+    type: String
   },
   tag: {
-    type: Array,
-  },
+    type: Array
+  }
 });
 
 const Topic = mongoose.model('Topic', TopicSchema);
