@@ -1,6 +1,5 @@
 const express = require('express');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
 
 
 const app = express();
@@ -32,14 +31,13 @@ app.use(bodyParser.json());
 // serve static files from /public
 app.use(express.static(`${__dirname}/template`));
 
-app.set('trust proxy', 1);
-
 // use sessions for tracking logins
 app.use(session({
-  secret: 'work_hard',
-  resave: true,
-  saveUninitialized: true,
-  cookie: { secure: false }
+  secret: 'super_sicrete',
+  resave: false,
+  cookie: {
+    secure: false
+  }
 }));
 
 // include routes

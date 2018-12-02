@@ -2,9 +2,6 @@ const Topic = require('../model/topic');
 
 // create new topic
 exports.createTopic = (req, res, next) => {
-  /* if (!req.session.userId) {
-    return res.status(401).send('Please login');
-  } */
   if (req.body.title) {
     const topicData = {
       title: req.body.title,
@@ -26,11 +23,6 @@ exports.createTopic = (req, res, next) => {
 
 // get all or by id topic
 exports.getTopic = (req, res, next) => {
-  console.log('on get all topic');
-  console.log(req.session);
-  /* if (!req.session.userId) {
-    return res.status(401).send('Please login');
-  } */
   if (req.query.topicId) {
     return Topic.findById(req.query.topicId, (err, topic) => {
       if (err) {
