@@ -31,7 +31,15 @@ exports.loginUser = (req, res, next) => {
         return next(err);
       }
       req.session.userId = user._id; // eslint-disable-line no-underscore-dangle
-      return res.status(200).json({ id: user._id }); // eslint-disable-line no-underscore-dangle
+      console.log('-------------------------');
+      console.log(req.session);
+      console.log('-------------------------');
+      return req.session.save(function () {
+        console.log('-------------------------');
+        console.log(req.session);
+        console.log('-------------------------');
+        return res.status(200).json({ id: user._id }); // eslint-disable-line no-underscore-dangle
+      });
     });
   }
   const err = new Error('All fields required.');

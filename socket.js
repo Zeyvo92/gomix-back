@@ -22,12 +22,12 @@ module.exports = (server) => {
     socket.on('message', (data) => {
       User.findById(data.userId, (err, user) => {
         if (err || !user) throw err;
-        io.to(data.topicId).emit('newMessage', { email: user.email, msg: data.msg });
+        io.to(data.topicId).emit('newMessage', { email: user.email, text: data.text });
       });
       const messageData = {
         userId: data.userId,
         topicId: data.topicId,
-        text: data.msg
+        text: data.text
       };
       Message.create(messageData, (err) => {
         if (err) throw err;

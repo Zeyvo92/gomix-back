@@ -1,5 +1,7 @@
 const express = require('express');
 const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+
 
 const app = express();
 const bodyParser = require('body-parser');
@@ -14,12 +16,6 @@ db.once('open', () => {
   console.log('Connected to Gomix database');
 });
 
-// use sessions for tracking logins
-app.use(session({
-  secret: 'work hard',
-  resave: true,
-  saveUninitialized: false
-}));
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -35,6 +31,14 @@ app.use(bodyParser.json());
 
 // serve static files from /public
 app.use(express.static(`${__dirname}/template`));
+
+// use sessions for tracking logins
+app.use(session({
+  secret: 'work_hard',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 
 // include routes
 const routes = require('./routes/router');
@@ -56,6 +60,7 @@ app.use((err, req, res) => {
     error: {}
   });
 });
+
 
 const server = require('http').Server(app);
 require('./socket')(server);
