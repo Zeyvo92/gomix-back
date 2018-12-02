@@ -59,8 +59,9 @@ app.use((err, req, res, next) => {
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
-require('./socket');
 app.set('socketio', io);
+require('./socket');
+
 
 // listen on port 8000
 server.listen(8000, () => {
