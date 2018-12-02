@@ -60,8 +60,7 @@ app.use((err, req, res, next) => {
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 app.set('socketio', io);
-require('./socket');
-
+require('./socket').createSocket();
 
 // listen on port 8000
 server.listen(8000, () => {
